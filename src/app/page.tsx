@@ -19,7 +19,6 @@ export default function HomePage() {
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
-      <ParticleNetwork />
       <NavBar />
       <section id="hero" className="relative h-screen flex items-center justify-center">
         <motion.div 
@@ -66,7 +65,7 @@ export default function HomePage() {
       </section>
 
       {/* Education Section */}
-      <section className="py-20 px-20">
+      <section id="education" className="py-20 px-20">
         <SectionHeading>Education</SectionHeading>
         <div className="space-y-12">
           {[
@@ -108,7 +107,7 @@ export default function HomePage() {
       </section>
 
       {/* Publications Section */}
-      <section className="py-20 px-20 bg-[#2A2A2A]">
+      <section id="publications" className="py-20 px-20 bg-[#2A2A2A]">
         <SectionHeading>Publications</SectionHeading>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -139,7 +138,7 @@ export default function HomePage() {
       </section>
 
       {/* Experience Section */}
-      <section className="py-20 px-20">
+      <section id="experience" className="py-20 px-20">
         <SectionHeading>Professional Experience</SectionHeading>
         <div className="space-y-8">
           {[
@@ -199,7 +198,7 @@ export default function HomePage() {
       </section>
 
       {/* Projects Section */}
-      <section className="py-20 px-20 bg-[#2A2A2A]">
+      <section id="projects" className="py-20 px-20 bg-[#2A2A2A]">
         <SectionHeading>Technical Projects</SectionHeading>
         <div className="grid grid-cols-2 gap-8">
           {[
@@ -268,7 +267,7 @@ export default function HomePage() {
       </section>
 
       {/* Skills Section */}
-      <section className="py-20 px-20">
+      <section id="skills" className="py-20 px-20">
         <SectionHeading>Technical Skills</SectionHeading>
         <div className="grid grid-cols-2 gap-8">
           {[
@@ -335,7 +334,7 @@ export default function HomePage() {
       </section>
 
       {/* Contact Section */}
-      <section className="py-20 px-20 text-center">
+      <section id="contact" className="py-20 px-20 text-center">
         <SectionHeading>Get In Touch</SectionHeading>
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
