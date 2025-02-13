@@ -61,14 +61,14 @@ export function ParticleBackground() {
         ));
       }
 
-      // Add particles on mouse interaction
+      // Add particles on mouse interaction with organic spread
       if (isMouseDownRef.current) {
-        for (let i = 0; i < 8; i++) {
-          const angle = (Math.PI * 2 * i) / 8;
-          const radius = 50;
+        for (let i = 0; i < 12; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const distance = Math.random() * 80;
           particles.push(createParticle(
-            mouseRef.current.x + Math.cos(angle) * radius + (Math.random() - 0.5) * 30,
-            mouseRef.current.y + Math.sin(angle) * radius + (Math.random() - 0.5) * 30
+            mouseRef.current.x + Math.cos(angle) * distance,
+            mouseRef.current.y + Math.sin(angle) * distance
           ));
         }
       }

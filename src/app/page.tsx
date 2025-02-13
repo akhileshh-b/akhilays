@@ -3,12 +3,29 @@
 import { motion } from "framer-motion";
 import { ChevronDown, Github, Linkedin, Mail, Phone, Award, BookOpen, Briefcase, Code } from "lucide-react";
 import { ParticleBackground } from "@/components/particle-background";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import Typed from "typed.js";
 import { SectionHeading } from "@/components/section-heading";
 import { NavBar } from "@/components/nav-bar";
 
 export default function HomePage() {
   const [scrollY, setScrollY] = useState(0);
+  const nameRef = useRef(null);
+
+  useEffect(() => {
+    const typed = new Typed(nameRef.current, {
+      strings: ['Akhilesh Bonde'],
+      typeSpeed: 50,
+      backSpeed: 50,
+      backDelay: 4000,
+      loop: true,
+      cursorChar: '|',
+    });
+
+    return () => {
+      typed.destroy();
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
@@ -29,7 +46,7 @@ export default function HomePage() {
           className="text-center z-10"
         >
           <h1 className="text-[#CCFF00] text-7xl font-bold mb-6">
-            Akhilesh Bonde
+            <span ref={nameRef}></span>
           </h1>
           <h2 className="text-white text-2xl mb-8">
             Software Engineer & AI/ML Enthusiast
