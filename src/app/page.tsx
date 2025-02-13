@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ChevronDown, Github, Linkedin, Mail, Phone, Award, BookOpen, Briefcase, Code } from "lucide-react";
 import { useEffect, useState } from "react";
 import { SectionHeading } from "@/components/section-heading";
+import { NavBar } from "@/components/nav-bar";
 
 export default function HomePage() {
   const [scrollY, setScrollY] = useState(0);
