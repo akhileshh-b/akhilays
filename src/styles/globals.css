@@ -96,7 +96,15 @@
     left: 0;
     right: 0;
     height: 100vh;
-    background-color: #171717;
+    background-color: #0A0A0A;
+    z-index: -2;
+  }
+
+  .particle-network-animation canvas {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
   }
 
   .glow {

@@ -31,11 +31,12 @@ export function ParticleNetwork() {
     const ParticleNetwork = window.ParticleNetwork;
     new ParticleNetwork(containerRef.current, {
       particleColor: "#CCFF00",
-      background: "#171717",
+      background: "transparent",
       interactive: true,
-      density: 15000,
-      velocity: 1,
-      particleRadius: 2,
+      density: 8000,
+      velocity: 0.8,
+      particleRadius: 2.5,
+      lineColor: "rgba(204, 255, 0, 0.15)"
     });
   };
 
