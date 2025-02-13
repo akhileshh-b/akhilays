@@ -46,8 +46,9 @@ export function ParticleBackground() {
           number: {
             density: {
               enable: true,
-              factor: 800,
+              area: 800,
             },
+            limit: 80,
             value: 80,
           },
           opacity: {
