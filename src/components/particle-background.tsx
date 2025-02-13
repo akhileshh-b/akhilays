@@ -37,14 +37,14 @@ export function ParticleBackground() {
       y: y ?? Math.random() * canvas.height,
       vx: (Math.random() - 0.5) * 0.5,
       vy: (Math.random() - 0.5) * 0.5,
-      radius: Math.random() * 2 + 1,
+      radius: Math.random() * 3 + 1.5,
       opacity: 0,
       color: Math.random() > 0.5 ? '#CCFF00' : '#A3CC00'
     });
 
     const createParticles = () => {
       particles = [];
-      const particleCount = Math.floor((canvas.width * canvas.height) / 8000);
+      const particleCount = Math.floor((canvas.width * canvas.height) / 6000);
       for (let i = 0; i < particleCount; i++) {
         particles.push(createParticle());
       }
@@ -63,10 +63,12 @@ export function ParticleBackground() {
 
       // Add particles on mouse interaction
       if (isMouseDownRef.current) {
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 8; i++) {
+          const angle = (Math.PI * 2 * i) / 8;
+          const radius = 50;
           particles.push(createParticle(
-            mouseRef.current.x + (Math.random() - 0.5) * 30,
-            mouseRef.current.y + (Math.random() - 0.5) * 30
+            mouseRef.current.x + Math.cos(angle) * radius + (Math.random() - 0.5) * 30,
+            mouseRef.current.y + Math.sin(angle) * radius + (Math.random() - 0.5) * 30
           ));
         }
       }
@@ -133,8 +135,8 @@ export function ParticleBackground() {
       });
 
       // Remove excess particles
-      if (particles.length > 500) {
-        particles = particles.slice(-500);
+      if (particles.length > 800) {
+        particles = particles.slice(-800);
       }
 
       requestAnimationFrame(drawParticles);
