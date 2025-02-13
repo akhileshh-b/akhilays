@@ -4,6 +4,9 @@
 
 @layer base {
   :root {
+    --neon-yellow: #CCFF00;
+    --dark-bg: #0A0A0A;
+    --gray-light: #2A2A2A;
     --background: #FFFFFF;
     --foreground: #09090B;
     --card: #FFFFFF;
