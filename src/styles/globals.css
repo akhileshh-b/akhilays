@@ -88,14 +88,44 @@
 
   body {
     @apply bg-background text-foreground;
-    background: linear-gradient(
-      to bottom,
-      rgb(10 10 10 / 100%) 0%,
-      rgb(10 10 10 / 80%) 50%,
-      rgb(10 10 10 / 100%) 100%
-    ),
-    url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80') no-repeat center center fixed;
-    background-size: cover;
+  }
+
+  .particle-network-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    background-color: #171717;
+  }
+
+  .glow {
+    z-index: -1;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    background-image: radial-gradient(circle closest-side, rgba(204, 255, 0, 0.025), transparent);
+  }
+
+  .glow-1 {
+    width: 150vw;
+    height: 150vh;
+    margin-top: -75vh;
+    margin-left: -75vw;
+  }
+
+  .glow-2 {
+    width: 100vw;
+    height: 100vh;
+    margin-top: -50vh;
+    margin-left: -50vw;
+  }
+
+  .glow-3 {
+    width: 120vw;
+    height: 120vh;
+    margin-top: -60vh;
+    margin-left: -60vw;
   }
 }
 

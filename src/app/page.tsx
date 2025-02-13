@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ChevronDown, Github, Linkedin, Mail, Phone, Award, BookOpen, Briefcase, Code } from "lucide-react";
+import { ParticleNetwork } from "@/components/particle-network";
 import { useEffect, useState } from "react";
 import { SectionHeading } from "@/components/section-heading";
 import { NavBar } from "@/components/nav-bar";
@@ -18,8 +19,9 @@ export default function HomePage() {
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
+      <ParticleNetwork />
       <NavBar />
-      <section id="hero" className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section id="hero" className="relative h-screen flex items-center justify-center">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
