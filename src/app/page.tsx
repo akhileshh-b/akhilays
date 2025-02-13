@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ChevronDown, Github, Linkedin, Mail } from "lucide-react";
+import { ChevronDown, Github, Linkedin, Mail, Phone, Award, BookOpen, Briefcase, Code } from "lucide-react";
 import { useEffect, useState } from "react";
+import { SectionHeading } from "@/components/section-heading";
 
 export default function HomePage() {
   const [scrollY, setScrollY] = useState(0);
@@ -29,11 +30,13 @@ export default function HomePage() {
           <h2 className="text-white text-2xl mb-8">
             Software Engineer & AI/ML Enthusiast
           </h2>
-          <div className="flex gap-6 justify-center">
+          <div className="flex gap-6 justify-center mb-8">
             {[
-              { icon: Github, href: "https://github.com/akhileshh-b" },
-              { icon: Linkedin, href: "https://linkedin.com/in/akhilesh-bonde" },
-              { icon: Mail, href: "mailto:akhileshbonde02@gmail.com" },
+              { icon: Github, href: "https://github.com/akhileshh-b", label: "GitHub" },
+              { icon: Linkedin, href: "https://linkedin.com/in/akhilesh-bonde", label: "LinkedIn" },
+              { icon: Mail, href: "mailto:akhileshbonde02@gmail.com", label: "Email" },
+              { icon: Phone, href: "tel:+917385438605", label: "Phone" },
+              { icon: Code, href: "https://leetcode.com/u/akhilays/", label: "LeetCode" },
             ].map((item, index) => (
               <motion.a
                 key={index}
@@ -41,9 +44,10 @@ export default function HomePage() {
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.2, color: "#CCFF00" }}
-                className="text-white hover:text-[#CCFF00] transition-colors"
+                className="text-white hover:text-[#CCFF00] transition-colors flex flex-col items-center gap-2"
               >
                 <item.icon size={24} />
+                <span className="text-sm">{item.label}</span>
               </motion.a>
             ))}
           </div>
@@ -57,27 +61,173 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* Projects Section */}
+      {/* Education Section */}
       <section className="py-20 px-20">
-        <motion.h2 
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
+        <SectionHeading>Education</SectionHeading>
+        <div className="space-y-12">
+          {[
+            {
+              school: "Shri Ramdeobaba College of Engineering and Management",
+              degree: "B.Tech in Computer Science and Engineering (AI/ML)",
+              period: "2022 – Present",
+              score: "CGPA: 8.38/10.0",
+            },
+            {
+              school: "Hislop College",
+              degree: "Higher Secondary Certificate (HSC)",
+              period: "2019 – 2021",
+              score: "Science Stream: 88.17%",
+            },
+            {
+              school: "St. John's High School",
+              degree: "Secondary School Certificate (CBSE)",
+              period: "2019",
+              score: "Percentage: 85%",
+            },
+          ].map((edu, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              className="bg-[#2A2A2A] p-8 rounded-lg border border-[#CCFF00]/20"
+            >
+              <h3 className="text-[#CCFF00] text-2xl font-bold mb-2">{edu.school}</h3>
+              <p className="text-white text-lg mb-2">{edu.degree}</p>
+              <div className="flex justify-between text-[#CCFF00]/60">
+                <span>{edu.period}</span>
+                <span>{edu.score}</span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Publications Section */}
+      <section className="py-20 px-20 bg-[#2A2A2A]">
+        <SectionHeading>Publications</SectionHeading>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-[#CCFF00] text-4xl font-bold mb-12"
+          className="bg-black/50 p-8 rounded-lg border border-[#CCFF00]/20"
         >
-          Featured Projects
-        </motion.h2>
+          <h3 className="text-[#CCFF00] text-2xl font-bold mb-4">
+            Multimodal Deep Learning Framework for Intelligent Video Querying
+          </h3>
+          <p className="text-white mb-4">
+            Published in Advances in Nonlinear Variational Inequalities (e-ISSN: 1092-910X)
+          </p>
+          <p className="text-[#CCFF00]/60 mb-4">DOI: 10.52783/anvi.v28.3500</p>
+          <p className="text-white">
+            Developed an end-to-end framework integrating ResNet18, Whisper, and computer vision algorithms
+          </p>
+          <motion.a
+            href="https://www.internationalpubls.com/index.php/anvi/article/view/3500"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.05 }}
+            className="inline-block mt-4 text-[#CCFF00] hover:underline"
+          >
+            View Full Paper →
+          </motion.a>
+        </motion.div>
+      </section>
+
+      {/* Experience Section */}
+      <section className="py-20 px-20">
+        <SectionHeading>Professional Experience</SectionHeading>
+        <div className="space-y-8">
+          {[
+            {
+              role: "Hacker Experience Lead",
+              company: "Raisina Hacks",
+              period: "May 2024 – Dec 2024",
+              achievements: [
+                "Built and managed the official Discord community, growing it to 500+ members with 60%+ active engagement",
+                "Automated server workflows, reducing response time by 40%",
+              ],
+            },
+            {
+              role: "Graphic Designer & Community Manager",
+              company: "theDevArmy Community",
+              period: "Oct 2023 – Feb 2025",
+              achievements: [
+                "Grew Discord community from 100 to 1,000+ members, achieving 70% retention",
+                "Developed 15+ technical workshops and designed a social media campaign with 50K+ impressions",
+              ],
+            },
+            {
+              role: "Technical Team Member",
+              company: "GeeksForGeeks RCOEM",
+              period: "Sept 2023 – Feb 2024",
+              achievements: [
+                "Organized and conducted 3+ technical events, attracting 200+ participants",
+                "Designed interactive coding challenges and workshops",
+              ],
+            },
+          ].map((exp, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              className="bg-[#2A2A2A] p-8 rounded-lg border border-[#CCFF00]/20"
+            >
+              <div className="flex justify-between items-start mb-4">
+                <div>
+                  <h3 className="text-[#CCFF00] text-2xl font-bold">{exp.role}</h3>
+                  <p className="text-white text-lg">{exp.company}</p>
+                </div>
+                <span className="text-[#CCFF00]/60">{exp.period}</span>
+              </div>
+              <ul className="space-y-2">
+                {exp.achievements.map((achievement, i) => (
+                  <li key={i} className="text-white flex items-start gap-2">
+                    <span className="text-[#CCFF00]">•</span>
+                    {achievement}
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section className="py-20 px-20 bg-[#2A2A2A]">
+        <SectionHeading>Technical Projects</SectionHeading>
         <div className="grid grid-cols-2 gap-8">
           {[
             {
               title: "Vidiwise",
-              description: "Video Processing Platform with FastAPI backend",
-              tech: "PyTorch • ResNet18 • Whisper",
+              description: "Video Processing Platform",
+              details: [
+                "Designed a FastAPI backend capable of handling 50+ concurrent video requests",
+                "Engineered an end-to-end video analysis pipeline using PyTorch, ResNet18, and Whisper, achieving 92% accuracy",
+              ],
+              tech: "PyTorch • ResNet18 • Whisper • FastAPI",
+              link: "https://www.google.com",
             },
             {
               title: "Manahstithi",
               description: "Mental Health Assessment Platform",
+              details: [
+                "Developed an ensemble ML model with 85% accuracy",
+                "Implemented a recommendation engine using collaborative filtering, increasing engagement rates by 65%",
+              ],
               tech: "ML • Collaborative Filtering",
+              link: "https://www.google.com",
+            },
+            {
+              title: "Credit Card Fraud Detection",
+              description: "ML-based Fraud Detection System",
+              details: [
+                "Built an ML pipeline achieving 94% ROC-AUC score on 284,000+ transactions",
+                "Optimized performance using SMOTE and feature engineering, improving fraud detection accuracy by 25%",
+              ],
+              tech: "Python • ML • SMOTE",
+              link: "https://www.google.com",
             },
           ].map((project, index) => (
             <motion.div
@@ -85,40 +235,54 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
-              whileHover={{ scale: 1.05 }}
-              className="bg-[#2A2A2A] p-8 rounded-lg cursor-pointer border border-[#CCFF00]/20 hover:border-[#CCFF00]"
+              whileHover={{ scale: 1.02 }}
+              className="bg-black/50 p-8 rounded-lg border border-[#CCFF00]/20 hover:border-[#CCFF00]"
             >
-              <h3 className="text-[#CCFF00] text-2xl font-bold mb-4">{project.title}</h3>
-              <p className="text-white mb-4">{project.description}</p>
-              <p className="text-[#CCFF00]/60">{project.tech}</p>
+              <h3 className="text-[#CCFF00] text-2xl font-bold mb-2">{project.title}</h3>
+              <p className="text-white text-lg mb-4">{project.description}</p>
+              <ul className="space-y-2 mb-4">
+                {project.details.map((detail, i) => (
+                  <li key={i} className="text-white flex items-start gap-2">
+                    <span className="text-[#CCFF00]">•</span>
+                    {detail}
+                  </li>
+                ))}
+              </ul>
+              <p className="text-[#CCFF00]/60 mb-4">{project.tech}</p>
+              <motion.a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#CCFF00] hover:underline"
+                whileHover={{ x: 5 }}
+              >
+                View Project →
+              </motion.a>
             </motion.div>
           ))}
         </div>
       </section>
 
       {/* Skills Section */}
-      <section className="py-20 px-20 bg-[#2A2A2A]">
-        <motion.h2 
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6 }}
-          className="text-[#CCFF00] text-4xl font-bold mb-12"
-        >
-          Technical Skills
-        </motion.h2>
-        <div className="grid grid-cols-3 gap-8">
+      <section className="py-20 px-20">
+        <SectionHeading>Technical Skills</SectionHeading>
+        <div className="grid grid-cols-2 gap-8">
           {[
             {
-              category: "Languages",
-              skills: "Python • C++ • Java • TypeScript",
+              category: "Programming Languages",
+              skills: ["Python", "C", "C++", "Java"],
             },
             {
-              category: "Frameworks",
-              skills: "PyTorch • TensorFlow • FastAPI • React",
+              category: "Machine Learning & Deep Learning",
+              skills: ["PyTorch", "TensorFlow", "ResNet18", "Scikit-learn"],
             },
             {
-              category: "Tools",
-              skills: "Git • Docker • MongoDB • OpenCV",
+              category: "Web Development",
+              skills: ["FastAPI", "Flask", "React.js", "Node.js", "REST APIs"],
+            },
+            {
+              category: "Tools & Databases",
+              skills: ["Git", "Docker", "MongoDB", "SQLite", "OpenCV"],
             },
           ].map((skillSet, index) => (
             <motion.div
@@ -126,10 +290,41 @@ export default function HomePage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.2 }}
-              className="text-center"
+              className="bg-[#2A2A2A] p-8 rounded-lg border border-[#CCFF00]/20"
             >
               <h3 className="text-[#CCFF00] text-2xl font-bold mb-4">{skillSet.category}</h3>
-              <p className="text-white">{skillSet.skills}</p>
+              <div className="flex flex-wrap gap-2">
+                {skillSet.skills.map((skill, i) => (
+                  <span
+                    key={i}
+                    className="bg-black/30 text-white px-3 py-1 rounded-full border border-[#CCFF00]/20"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Achievements Section */}
+      <section className="py-20 px-20 bg-[#2A2A2A]">
+        <SectionHeading>Achievements</SectionHeading>
+        <div className="space-y-6">
+          {[
+            "1st place winner at O.P. Jindal University's National-Level Technorollix-2024",
+            "Published research in Advances in Nonlinear Variational Inequalities (e-ISSN: 1092-910X)",
+          ].map((achievement, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              className="flex items-start gap-4"
+            >
+              <Award className="text-[#CCFF00] flex-shrink-0 mt-1" />
+              <p className="text-white text-lg">{achievement}</p>
             </motion.div>
           ))}
         </div>
@@ -137,14 +332,7 @@ export default function HomePage() {
 
       {/* Contact Section */}
       <section className="py-20 px-20 text-center">
-        <motion.h2 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
-          className="text-[#CCFF00] text-4xl font-bold mb-8"
-        >
-          Get In Touch
-        </motion.h2>
+        <SectionHeading>Get In Touch</SectionHeading>
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
