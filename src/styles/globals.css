@@ -95,7 +95,8 @@
     position: fixed;
     top: 50%;
     left: 50%;
-    background-image: radial-gradient(circle closest-side, rgb(204 255 0 / 2.5%), transparent);
+    background-image: radial-gradient(circle closest-side, rgba(204, 255, 0, 0.025), transparent);
+    pointer-events: none;
   }
 
   .glow-1 {

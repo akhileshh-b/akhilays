@@ -6,6 +6,8 @@ import { motion } from "framer-motion";
 export function ParticleBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const mouseRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const isMouseDownRef = useRef(false);
 
   useEffect(() => {
     if (!canvasRef.current || !containerRef.current) return;
@@ -21,6 +23,7 @@ export function ParticleBackground() {
       vy: number;
       radius: number;
       opacity: number;
+      color: string;
     }> = [];
 
     const resizeCanvas = () => {
@@ -29,43 +32,79 @@ export function ParticleBackground() {
       canvas.height = containerRef.current.offsetHeight;
     };
 
+    const createParticle = (x?: number, y?: number) => ({
+      x: x ?? Math.random() * canvas.width,
+      y: y ?? Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.5,
+      vy: (Math.random() - 0.5) * 0.5,
+      radius: Math.random() * 1.5 + 0.5,
+      opacity: 0,
+      color: Math.random() > 0.5 ? '#CCFF00' : '#A3CC00'
+    });
+
     const createParticles = () => {
       particles = [];
-      const particleCount = 80;
+      const particleCount = Math.floor((canvas.width * canvas.height) / 15000);
       for (let i = 0; i < particleCount; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 1,
-          vy: (Math.random() - 0.5) * 1,
-          radius: Math.random() * 2 + 1,
-          opacity: 0
-        });
+        particles.push(createParticle());
       }
     };
 
     const drawParticles = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+      // Add particles on mouse interaction
+      if (isMouseDownRef.current) {
+        for (let i = 0; i < 2; i++) {
+          particles.push(createParticle(
+            mouseRef.current.x + (Math.random() - 0.5) * 20,
+            mouseRef.current.y + (Math.random() - 0.5) * 20
+          ));
+        }
+      }
+
       // Draw particles and connections
       particles.forEach((p1, i) => {
         // Update particle opacity
-        if (p1.opacity < 0.3) {
+        if (p1.opacity < 0.4) {
           p1.opacity += 0.01;
+        }
+
+        // Apply mouse influence
+        const dx = mouseRef.current.x - p1.x;
+        const dy = mouseRef.current.y - p1.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < 120) {
+          const force = (120 - distance) / 120;
+          p1.vx += (dx / distance) * force * 0.02;
+          p1.vy += (dy / distance) * force * 0.02;
         }
 
         // Update position
         p1.x += p1.vx;
         p1.y += p1.vy;
 
-        // Bounce off walls
-        if (p1.x < 0 || p1.x > canvas.width) p1.vx *= -1;
-        if (p1.y < 0 || p1.y > canvas.height) p1.vy *= -1;
+        // Add friction
+        p1.vx *= 0.99;
+        p1.vy *= 0.99;
 
-        // Draw particle
+        // Bounce off walls
+        if (p1.x < 0 || p1.x > canvas.width) {
+          p1.vx *= -1;
+          p1.x = Math.max(0, Math.min(canvas.width, p1.x));
+        }
+        if (p1.y < 0 || p1.y > canvas.height) {
+          p1.vy *= -1;
+          p1.y = Math.max(0, Math.min(canvas.height, p1.y));
+        }
+
+        // Draw particle with glow effect
         ctx.beginPath();
-        ctx.arc(p1.x, p1.y, p1.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(204, 255, 0, ${p1.opacity})`;
+        const gradient = ctx.createRadialGradient(p1.x, p1.y, 0, p1.x, p1.y, p1.radius * 2);
+        gradient.addColorStop(0, `${p1.color}${Math.floor(p1.opacity * 255).toString(16).padStart(2, '0')}`);
+        gradient.addColorStop(1, 'transparent');
+        ctx.fillStyle = gradient;
+        ctx.arc(p1.x, p1.y, p1.radius * 2, 0, Math.PI * 2);
         ctx.fill();
 
         // Draw connections
@@ -74,17 +113,40 @@ export function ParticleBackground() {
           const dy = p1.y - p2.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < 150) {
+          if (distance < 100) {
             ctx.beginPath();
+            ctx.strokeStyle = `rgba(204, 255, 0, ${0.15 * (1 - distance / 100) * p1.opacity * p2.opacity})`;
+            ctx.lineWidth = 0.5;
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(204, 255, 0, ${0.2 * (1 - distance / 150) * p1.opacity * p2.opacity})`;
             ctx.stroke();
           }
         });
       });
 
+      // Remove excess particles
+      if (particles.length > 300) {
+        particles = particles.slice(-300);
+      }
+
       requestAnimationFrame(drawParticles);
+    };
+
+    // Mouse event handlers
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mouseRef.current = {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top
+      };
+    };
+
+    const handleMouseDown = () => {
+      isMouseDownRef.current = true;
+    };
+
+    const handleMouseUp = () => {
+      isMouseDownRef.current = false;
     };
 
     // Initialize
@@ -92,19 +154,27 @@ export function ParticleBackground() {
     createParticles();
     drawParticles();
 
-    // Handle resize
+    // Event listeners
     window.addEventListener('resize', () => {
       resizeCanvas();
       createParticles();
     });
+    canvas.addEventListener('mousemove', handleMouseMove);
+    canvas.addEventListener('mousedown', handleMouseDown);
+    canvas.addEventListener('mouseup', handleMouseUp);
+    canvas.addEventListener('mouseout', handleMouseUp);
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
+      canvas.removeEventListener('mousemove', handleMouseMove);
+      canvas.removeEventListener('mousedown', handleMouseDown);
+      canvas.removeEventListener('mouseup', handleMouseUp);
+      canvas.removeEventListener('mouseout', handleMouseUp);
     };
   }, []);
 
   return (
-    <div ref={containerRef} className="absolute inset-0 overflow-hidden">
+    <div ref={containerRef} className="absolute inset-0 overflow-hidden bg-[#0A0A0A]">
       <canvas
         ref={canvasRef}
         className="absolute inset-0"
