@@ -12,7 +12,10 @@ export function SectionHeading({ children }: SectionHeadingProps) {
       initial={{ opacity: 0, x: -20 }}
       whileInView={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.6 }}
-      className="text-[#CCFF00] text-4xl font-bold mb-12"
+      className="text-[#CCFF00] text-4xl font-bold mb-12 relative"
+      style={{
+        textShadow: '0 0 10px rgba(204, 255, 0, 0.3)',
+      }}
     >
       {children}
     </motion.h2>

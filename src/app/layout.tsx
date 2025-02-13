@@ -14,7 +14,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className="bg-[#0A0A0A] font-['Space_Grotesk']">{children}</body>
+      <body className="bg-[#0A0A0A] font-['Space_Grotesk'] overflow-x-hidden perspective">{children}</body>
     </html>
   );
 }
